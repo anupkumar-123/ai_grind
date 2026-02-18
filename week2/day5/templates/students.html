@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+
+        {% for s in students %}
+        <tr>
+            <td>{{s[0]}}</td>
+            <td>{{s[1]}}</td>
+            <td>{{s[2]}}</td>
+            <td>{{s[3]}}</td>
+            <td><a href="/delete/{{s[0]}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Back</a>
+</body>
+</html>
