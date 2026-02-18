@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <h2>Student Management</h2>
+    <a href="/logout"></a>
+
+    <h3>Add Student</h3>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="number" name="age" placeholder="Age" required>
+        <input type="text" name="course" placeholder="Course" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h3>Student List</h3>
+    <table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Course</th>
+        <th>Action</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.name}}</td>
+        <td>{{s.age}}</td>
+        <td>{{s.course}}</td>
+        <td><a href="/delete/{{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% endblock %}
+   
+    
+</body>
+</html>
