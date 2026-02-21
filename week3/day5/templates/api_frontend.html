@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API FRONTENED</title>
+</head>
+<body>
+<h2>Login</h2>
+
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="pasword" placeholder="Password">
+<button onclick="login()">Login</button>
+<hr>
+
+<h2>Students</h2>
+<button onclick="getStudents()">Load Students</button>
+
+<ul id="studentList"></ul>
+
+<script>
+let token = "";
+
+function login() {
+    fetch("/api/login", {
+        method: "POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+             username:
+            document.getElementById("username").value,
+             password:
+             document.getElementById("password").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+         token = data.access_token;
+        alert("Login Successfully");
+    });
+}
+function getStudents() {
+    fetch("/api/students", {
+         method: "GET",
+         headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+         let list = 
+         document.getElementById("studentList");
+        list.innerHTML = "";
+
+        data.data.forEach(student => {
+            let li = 
+            document.createElement("li");
+            li.innerText = student.name + " - " + student.age + " - " + student.course;
+            list.appendChild(li);
+        });
+    });
+}
+
+
+</script>
+</body>
+</html>
